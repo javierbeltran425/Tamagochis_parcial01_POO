@@ -23,16 +23,7 @@ public class Empresa {
     }
 
    static public void addEmpleado(Empleado persona){
-        System.out.println("**********************************");
-        System.out.println(" Sistema de registro de empleados");
-        System.out.println("**********************************");
 
-        System.out.print("Ingrese el nombre del empleado: ");
-        persona.nombre = in.nextLine();
-        System.out.print("\nIngrese el puesto a desempeñar: ");
-        persona.puesto = in.nextLine();
-        System.out.print("\nIngrese el salario de este empleado: ");
-        persona.salario = in.nextInt(); in.nextLine();
 
         planilla.add(persona);
     }

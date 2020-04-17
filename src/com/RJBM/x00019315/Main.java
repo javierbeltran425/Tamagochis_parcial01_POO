@@ -1,9 +1,12 @@
 package com.RJBM.x00019315;
 
-public class Main {
+import java.util.Scanner;
 
+public class Main {
+    static  Scanner in = new Scanner(System.in);
     public static void main(String[] args) {
-	    boolean continuar = true;
+
+        boolean continuar = true;
         int opción = 0;
         System.out.println("*********************");
         System.out.println(" Sistema de empresa");
@@ -31,6 +34,16 @@ public class Main {
     }
 
     public static void addEmpleado(){
-        
+        Empleado persona = new Empleado;
+        System.out.println("**********************************");
+        System.out.println(" Sistema de registro de empleados");
+        System.out.println("**********************************");
+
+        System.out.print("Ingrese el nombre del empleado: ");
+        persona.nombre = in.nextLine();
+        System.out.print("\nIngrese el puesto a desempeñar: ");
+        persona.puesto = in.nextLine();
+        System.out.print("\nIngrese el salario de este empleado: ");
+        persona.salario = in.nextInt(); in.nextLine();
     }
 }
