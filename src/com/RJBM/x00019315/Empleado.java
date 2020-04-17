@@ -5,7 +5,7 @@ import java.util.List;
 public abstract class Empleado {
     protected String nombre;
     protected String puesto;
-    protected List<Documentos> documentos = new List<>();
+    protected List<Documento> documentos;
     protected double salario;
 
     //Contructor
@@ -23,7 +23,7 @@ public abstract class Empleado {
         return puesto;
     }
 
-    public List<Documentos> getDocumentos() {
+    public List<Documento> getDocumentos() {
         return documentos;
     }
 
