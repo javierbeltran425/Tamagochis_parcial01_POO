@@ -28,7 +28,7 @@ public class Empresa {
         planilla.add(persona);
     }
 
-    static public void quitEmpleado(String nombre){
+    static public void quitEmpleado(String nombre) throws NotExistingEmployee {
         System.out.println("Ingrese el nombre del empleado a despedir: ");
         nombre = in.nextLine();
 
@@ -37,6 +37,9 @@ public class Empresa {
                 planilla.remove(aux);
                 System.out.print("El empleado a sido despedido");
             }
+
+            else
+                throw new NotExistingEmployee("No existe ese empleado.");
         }
     }
 }
