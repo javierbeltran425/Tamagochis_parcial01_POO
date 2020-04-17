@@ -23,8 +23,6 @@ public class Empresa {
     }
 
    static public void addEmpleado(Empleado persona){
-
-
         planilla.add(persona);
     }
 
