@@ -1,11 +1,14 @@
 package com.RJBM.x00019315;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public abstract class Empleado {
+    static Scanner in = new Scanner(System.in);
     protected String nombre;
     protected String puesto;
-    protected List<Documentos> documentos = new List<>();
+    static protected List <Documento> documentos;
     protected double salario;
 
     //Contructor
@@ -13,6 +16,7 @@ public abstract class Empleado {
         this.nombre = nombre;
         this.puesto = puesto;
         this.salario = salario;
+        documentos = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -23,15 +27,27 @@ public abstract class Empleado {
         return puesto;
     }
 
-    public List<Documentos> getDocumentos() {
+    public List<Documento> getDocumentos() {
         return documentos;
     }
 
-    public static void addDocumento(Documento){
-
+    public static void addDocumento(Documento d){
+        documentos.add(d);
     }
 
-    public static void removeDocumento(String){
+    public static void removeDocumento(String nombreF) throws NotExistingDocuments {
+
+            System.out.println("Ingrese el nombre del documento a eliminar: ");
+            nombreF = in.nextLine();
+            String nombreFinal = nombreF;
+            for(Documento f : documentos){
+                if(f.getNombre() == nombreF)
+                    documentos.removeIf(obj -> obj.getNombre() == nombreFinal);
+
+                else
+                throw new NotExistingDocuments("No existe un documento con ese nombre.");
+            }
+
 
     }
 
