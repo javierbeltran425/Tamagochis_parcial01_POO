@@ -34,7 +34,7 @@ public class Main {
     }
 
     public static void addEmpleado(){
-        Empleado persona = new Empleado;
+        Empleado persona;
         System.out.println("**********************************");
         System.out.println(" Sistema de registro de empleados");
         System.out.println("**********************************");
