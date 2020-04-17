@@ -22,6 +22,7 @@ public class Main {
                 case 2:
                     break;
                 case 3:
+                    listaEmpleados();
                     break;
                 case 4:
                     break;
@@ -34,7 +35,7 @@ public class Main {
     }
 
     public static void addEmpleado(){
-        Empleado persona;
+        Empleado persona = null;
         System.out.println("**********************************");
         System.out.println(" Sistema de registro de empleados");
         System.out.println("**********************************");
@@ -45,5 +46,12 @@ public class Main {
         persona.puesto = in.nextLine();
         System.out.print("\nIngrese el salario de este empleado: ");
         persona.salario = in.nextInt(); in.nextLine();
+
+        Empresa.addEmpleado(persona);
+    }
+
+    public static void listaEmpleados(){
+        Empresa e = null;
+        System.out.print(e.getPlanilla());
     }
 }
