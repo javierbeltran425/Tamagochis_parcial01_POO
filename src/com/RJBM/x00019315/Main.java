@@ -1,5 +1,6 @@
 package com.RJBM.x00019315;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -9,6 +10,7 @@ public class Main {
         String nombre = null;
         boolean continuar = true;
         int opción = 0;
+        double sueldo = 0;
         System.out.println("*********************");
         System.out.println(" Sistema de empresa");
         System.out.println("*********************");
@@ -27,6 +29,22 @@ public class Main {
                     listaEmpleados();
                     break;
                 case 4:
+                    ArrayList<Empleado> a = null;
+                    Empresa p = null;
+                    CalculadoraImpuestos b = null;
+
+                    System.out.print("Ingrese el nombre de empleado: ");
+                    nombre = in.nextLine();
+
+                    a = p.getPlanilla();
+
+                    for (Empleado aux : a) {
+                        if(nombre.equals(aux)){
+                            sueldo = b.calcularPago(aux);
+                            System.out.print("Sueldo total: $" + sueldo);
+                        }
+                    }
+
                     break;
                 case 5:
                     break;
@@ -38,14 +56,26 @@ public class Main {
 
     public static void addEmpleado(){
         Empleado persona = null;
+        int opción = 0;
         System.out.println("**********************************");
         System.out.println(" Sistema de registro de empleados");
         System.out.println("**********************************");
 
         System.out.print("Ingrese el nombre del empleado: ");
         persona.nombre = in.nextLine();
-        System.out.print("\nIngrese el puesto a desempeñar: ");
-        persona.puesto = in.nextLine();
+        System.out.print("\nIngrese el puesto a desempeñar: " + "\n\t1. Plaza fija\n\t2. Servicio profesional");
+        opción = in.nextInt(); in.nextLine();
+
+        switch (opción){
+            case 1:
+                persona.puesto = "Plaza fija";
+                break;
+            case 2:
+                persona.puesto = "Servicio profesional";
+                break;
+            default: System.out.print("Opción incorrecta");
+        }
+        
         System.out.print("\nIngrese el salario de este empleado: ");
         persona.salario = in.nextInt(); in.nextLine();
 
