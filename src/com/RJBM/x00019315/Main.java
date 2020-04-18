@@ -13,76 +13,79 @@ public class Main {
         boolean continuar = true;
         int opción;
         double sueldo;
+
+
+    do {
+        System.out.println();
         System.out.println("*********************");
         System.out.println(" Sistema de empresa");
         System.out.println("*********************");
 
-
-    do {
-        System.out.print("1. Agregar empleado\n2. Despedir empleado\n 3. Ver lista de empleados\n4. Calcular sueldo\n5. Mostrar totales");
+        System.out.print("1. Agregar empleado\n2. Despedir empleado\n3. Ver lista de empleados\n4. Calcular sueldo" +
+                "\n5. Mostrar totales\n6. Salir");
+        System.out.println();
+        System.out.print("Ingrese su opcion: ");
         opción = in.nextInt();
         in.nextLine();
 
         try {
-        switch (opción) {
-            case 1:
-                anadirEmpleado();
-                break;
-            case 2:
-                quitEmpleado();
-                break;
-            case 3:
-                listaEmpleados();
-                break;
-            case 4:
-                String nombre = null;
-                ArrayList<Empleado> a;
-                CalculadoraImpuestos b;
-                b = new CalculadoraImpuestos();
+            switch (opción) {
+                case 1:
+                    anadirEmpleado();
+                    System.out.println();
+                    break;
+                case 2:
+                    quitEmpleado();
+                    System.out.println();
+                    break;
+                case 3:
+                    listaEmpleados();
+                    System.out.println();
+                    break;
+                case 4:
+                    String nombre;
+                    ArrayList<Empleado> a;
+                    CalculadoraImpuestos b;
+                    b = new CalculadoraImpuestos();
 
-                System.out.print("Ingrese el nombre de empleado: ");
-                nombre = in.nextLine();
+                    System.out.print("Ingrese el nombre de empleado: ");
+                    nombre = in.nextLine();
 
-                a = empresa.getPlanilla();
+                    a = empresa.getPlanilla();
 
-                for (Empleado aux : a) {
-                    if (aux.getNombre().equals(nombre)) {
-                        sueldo = b.calcularPago(aux);
-                        System.out.print("Sueldo total: $" + sueldo);
-                    }
-                }
-
-                break;
-            case 5:
-                String Nombre;
-                ArrayList<Empleado> pl = new ArrayList<>();
-                CalculadoraImpuestos impuesto = new CalculadoraImpuestos();
-
-                System.out.print("Ingrese el nombre del emplado: ");
-                Nombre = in.nextLine();
-
-                pl = empresa.getPlanilla();
-
-                for (Empleado aux : pl) {
-                    if (!pl.isEmpty()) {
-                        if (aux.getNombre().equals(Nombre)) {
-                            System.out.print(impuesto.mostrarTotales());
+                    for (Empleado aux : a) {
+                        if (aux.getNombre().equals(nombre)) {
+                            sueldo = b.calcularPago(aux);
+                            System.out.print("Sueldo total: $" + sueldo);
                         }
                     }
-                }
 
-                break;
+                    System.out.println();
 
-            case 6:
-                System.out.println("Saliendo...");
-                continuar = false;
-                break;
+                    break;
+                case 5:
+                    CalculadoraImpuestos impuesto = new CalculadoraImpuestos();
 
-            default:
-                System.out.print("Opción incorrecta");
-        }
+                    empresa.getPlanilla();
+                    System.out.print(impuesto.mostrarTotales());
+
+                    System.out.println();
+                    break;
+
+                case 6:
+                    System.out.println("Saliendo...");
+                    continuar = false;
+
+                    System.out.println();
+                    break;
+
+                default:
+                    System.out.print("Opción incorrecta");
+            }
+        } catch(ExcepciónEmpleado ex){
+            System.out.println(ex.getMessage());
         }catch (InputMismatchException mis){
-          System.out.print("Missmatch");
+          System.out.print(mis.getMessage());
         } catch(ArithmeticException ex){
             System.out.print(ex.getMessage());
         }catch(Exception mes) {
@@ -98,6 +101,7 @@ public class Main {
         int opción;
         String puesto;
         double salario;
+        System.out.println();
         System.out.println("**********************************");
         System.out.println(" Sistema de registro de empleados");
         System.out.println("**********************************");
@@ -105,17 +109,18 @@ public class Main {
         System.out.print("Ingrese el nombre del empleado: ");
         persona = in.nextLine();
         System.out.print("\nIngrese el puesto a desempeñar: " + "\n\t1. Plaza fija\n\t2. Servicio profesional");
+        System.out.println();
+        System.out.print("Opcion: ");
         opción = in.nextInt(); in.nextLine();
 
         switch (opción){
             case 1:
                 try {
                     puesto = "Plaza fija";
-                    System.out.println("Ingrese la extension del contrato: ");
+                    System.out.print("Ingrese la extension del contrato: ");
                     int extension = in.nextInt();
-                    in.nextLine();
                     System.out.print("\nIngrese el salario de este empleado: ");
-                    salario = in.nextDouble(); in.nextLine();
+                    salario = in.nextDouble();
                     PlazaFija p1 = new PlazaFija(persona, puesto, salario, extension);
                     Empresa.addEmpleado(p1);
                 }catch (InputMismatchException mis){
@@ -128,12 +133,10 @@ public class Main {
             case 2:
                 try {
                     puesto = "Servicio profesional";
-                    System.out.println("Ingrese los meses de contrato: ");
+                    System.out.print("Ingrese los meses de contrato: ");
                     int mesesContrato = in.nextInt();
-                    in.nextLine();
                     System.out.print("\nIngrese el salario de este empleado: ");
                     salario = in.nextDouble();
-                    in.nextLine();
                     ServicioProfesional p2 = new ServicioProfesional(persona, puesto, salario, mesesContrato);
                     Empresa.addEmpleado(p2);
                 }catch (InputMismatchException mis){
@@ -147,21 +150,31 @@ public class Main {
         }
     }
 
-    public static void listaEmpleados(){
+    public static void listaEmpleados() {
         ArrayList<Empleado> e;
         e = empresa.getPlanilla();
 
-        for (Empleado aux: e) {
-            System.out.print("Nombre: " + aux.getNombre() + "\nPuesto: " + aux.getPuesto() + "\nSalario: " + aux.getSalario());
-        }
+        System.out.println();
+
+        if (!e.isEmpty()) {
+            for (Empleado aux : e) {
+                System.out.println();
+                System.out.println("*****");
+                System.out.print("Nombre: " + aux.getNombre() + "\nPuesto: " + aux.getPuesto() + "\nSalario: "
+                        + aux.getSalario());
+            }
+        } else
+            System.out.println("La lista está vacia.");
     }
 
-    public static void quitEmpleado() {
-        String nombre = null;
+    public static void quitEmpleado() throws ExcepciónEmpleado {
+        String nombre;
 
         System.out.print("Ingrese el nombre del empleado: ");
         nombre = in.nextLine();
 
         Empresa.quitEmpleado(nombre);
+
+        in.nextLine();
+        }
     }
-}

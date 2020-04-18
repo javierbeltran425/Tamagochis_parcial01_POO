@@ -25,18 +25,21 @@ public class Empresa {
         planilla.add(persona);
     }
 
-    static public void quitEmpleado(String nombre)  {
-
+    static public void quitEmpleado(String nombre) throws ExcepciónEmpleado {
+        boolean bandera = false;
         for (Empleado aux: planilla) {
             if(aux.getNombre().equals(nombre)){
                 planilla.remove(aux);
+                bandera = true;
+                in.nextLine();
                 System.out.print("Empleado despedido");
                 break;
-            }else{
-                System.out.print("Empleado no encontrado");
+                }
             }
-        }
+        if(!bandera)
+            throw new ExcepciónEmpleado("No existe el empleado en la list");
     }
-
-
 }
+
+
+
