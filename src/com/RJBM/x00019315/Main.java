@@ -174,6 +174,5 @@ public class Main {
 
         Empresa.quitEmpleado(nombre);
 
-        in.nextLine();
         }
     }

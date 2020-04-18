@@ -31,7 +31,6 @@ public class Empresa {
             if(aux.getNombre().equals(nombre)){
                 planilla.remove(aux);
                 bandera = true;
-                in.nextLine();
                 System.out.print("Empleado despedido");
                 break;
                 }
