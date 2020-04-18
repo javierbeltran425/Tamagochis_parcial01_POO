@@ -8,9 +8,8 @@ public class Empresa {
     private static String nombre;
     private static ArrayList<Empleado> planilla;
 
-    public Empresa(String nombre, ArrayList<Empleado> planilla) {
+    public Empresa(String nombre) {
         this.nombre = nombre;
-        this.planilla = planilla;
         planilla = new ArrayList<>();
     }
 

@@ -1,5 +1,6 @@
 package com.RJBM.x00019315;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 final public class CalculadoraImpuestos {
@@ -42,6 +43,11 @@ final public class CalculadoraImpuestos {
     }
 
     public String mostrarTotales(){
+                return "CalculadoraImpuestos{" +
+                        "totalRenta=" + totalRenta +
+                        ", totalISSS=" + totalISSS +
+                        ", totalAFP=" + totalAFP +
+                        '}';
+            }
 
-    }
 }
