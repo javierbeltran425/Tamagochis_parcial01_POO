@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Empresa {
     static Scanner in = new Scanner(System.in);
     private static String nombre;
-    private static ArrayList<Empleado> planilla;
+    private static ArrayList<Empleado> planilla = new ArrayList<>();
 
     public Empresa(String nombre) {
         this.nombre = nombre;
@@ -25,18 +25,18 @@ public class Empresa {
         planilla.add(persona);
     }
 
-    static public void quitEmpleado(String nombre) throws NotExistingEmployee {
-        System.out.println("Ingrese el nombre del empleado a despedir: ");
-        nombre = in.nextLine();
+    static public void quitEmpleado(String nombre)  {
 
         for (Empleado aux: planilla) {
             if(aux.getNombre().equals(nombre)){
                 planilla.remove(aux);
-                System.out.print("El empleado a sido despedido");
+                System.out.print("Empleado despedido");
+                break;
+            }else{
+                System.out.print("Empleado no encontrado");
             }
-
-            else
-                throw new NotExistingEmployee("No existe ese empleado.");
         }
     }
+
+
 }

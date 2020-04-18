@@ -1,53 +1,67 @@
 package com.RJBM.x00019315;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-
 final public class CalculadoraImpuestos {
-    static Scanner scan = new Scanner(System.in);
-    private double totalRenta;
-    private double totalISSS;
-    private double totalAFP;
 
-    private CalculadoraImpuestos() {
+    private static double totalRenta;
+    private static double totalISSS;
+    private static double totalAFP;
+
+    CalculadoraImpuestos() {
 
     }
 
     public double calcularPago(Empleado p){
         double restante = 0;
         double pagoEmpleado = 0;
-        if(p.getPuesto() == "Plaza fija"){
-            totalAFP = p.salario * 0.0625;
-            totalISSS = p.salario * 0.03;
 
-            restante = p.salario - totalAFP - totalISSS;
+        double rentaAux=0.00;
+        double isssAux=0.00;
+        double AFPAux=0.00;
+
+        if(p.getPuesto() == "Plaza fija"){
+            AFPAux = p.salario * 0.0625;
+            isssAux = p.salario * 0.03;
+            //this.totalAFP = p.salario * 0.0625;
+            //this.totalISSS = p.salario * 0.03;
+
+            //restante = p.salario - this.totalAFP - this.totalISSS;
+            restante = p.salario - AFPAux - isssAux;
 
             if(restante >= 0.01 && restante <= 472.00){
-                totalRenta = 0;
+                rentaAux = 0;
+             //   this.totalRenta = 0;
             }else if (restante >= 472.01 && restante <= 895.24){
-                totalRenta = 0.1 * (restante - 472) + 17.67;
+                //this.totalRenta = 0.1 * (restante - 472) + 17.67;
+                rentaAux = 0.1 * (restante - 472) + 17.67;
             }else if (restante >= 895.25 && restante <= 2038.10){
-                totalRenta = 0.2 * (restante - 895.24) + 60;
+                //this.totalRenta = 0.2 * (restante - 895.24) + 60;
+                rentaAux = 0.2 * (restante - 895.24) + 60;
             }else if(restante >= 2038.11){
-                totalRenta = 0.3 * (restante - 2038.10) + 288.57;
+                //this.totalRenta = 0.3 * (restante - 2038.10) + 288.57;
+                rentaAux = 0.3 * (restante - 2038.10) + 288.57;
             }
 
-            pagoEmpleado = restante - totalRenta;
+            pagoEmpleado = restante - rentaAux;
+            //pagoEmpleado = restante - this.totalRenta;
 
         }else if(p.getPuesto() == "Servicio profesional"){
-            totalRenta = 0.1 * p.salario;
-            pagoEmpleado = p.salario - totalRenta;
+            rentaAux= 0.1 * p.salario;
+            pagoEmpleado = p.salario - rentaAux;
         }
+
+        this.totalRenta = this.totalRenta + rentaAux;
+        this.totalISSS = this.totalISSS + isssAux;
+        this.totalAFP = this.totalAFP + AFPAux;
+
 
        return pagoEmpleado;
     }
 
     public String mostrarTotales(){
                 return "CalculadoraImpuestos{" +
-                        "totalRenta=" + totalRenta +
-                        ", totalISSS=" + totalISSS +
-                        ", totalAFP=" + totalAFP +
+                        "totalRenta=" + this.totalRenta +
+                        ", totalISSS=" + this.totalISSS +
+                        ", totalAFP=" + this.totalAFP +
                         '}';
             }
-
 }

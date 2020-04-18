@@ -1,14 +1,15 @@
 package com.RJBM.x00019315;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+    static Empresa empresa = new Empresa("Microsoft");
     static  Scanner in = new Scanner(System.in);
     public static void main(String[] args) {
 
-        String nombre = null;
         boolean continuar = true;
         int opción;
         double sueldo;
@@ -16,67 +17,87 @@ public class Main {
         System.out.println(" Sistema de empresa");
         System.out.println("*********************");
 
-        do {
-            System.out.print("1. Agregar empleado\n2. Despedir empleado\n 3. Ver lista de empleados\n4. Calcular sueldo\n5. Mostrar totales");
-            opción = in.nextInt(); in.nextLine();
 
-            switch (opción){
-                case 1:
-                    addEmpleado();
-                    break;
-                case 2:
-                    quitEmpleado(nombre);
-                    break;
-                case 3:
-                    listaEmpleados();
-                    break;
-                case 4:
-                    ArrayList<Empleado> a;
-                    Empresa p = null;
-                    CalculadoraImpuestos b = null;
+    do {
+        System.out.print("1. Agregar empleado\n2. Despedir empleado\n 3. Ver lista de empleados\n4. Calcular sueldo\n5. Mostrar totales");
+        opción = in.nextInt();
+        in.nextLine();
 
-                    System.out.print("Ingrese el nombre de empleado: ");
-                    nombre = in.nextLine();
+        try {
+        switch (opción) {
+            case 1:
+                anadirEmpleado();
+                break;
+            case 2:
+                quitEmpleado();
+                break;
+            case 3:
+                listaEmpleados();
+                break;
+            case 4:
+                String nombre = null;
+                ArrayList<Empleado> a;
+                CalculadoraImpuestos b;
+                b = new CalculadoraImpuestos();
 
-                    a = p.getPlanilla();
+                System.out.print("Ingrese el nombre de empleado: ");
+                nombre = in.nextLine();
 
-                    for (Empleado aux : a) {
-                        if(nombre.equals(aux)){
-                            sueldo = b.calcularPago(aux);
-                            System.out.print("Sueldo total: $" + sueldo);
+                a = empresa.getPlanilla();
+
+                for (Empleado aux : a) {
+                    if (aux.getNombre().equals(nombre)) {
+                        sueldo = b.calcularPago(aux);
+                        System.out.print("Sueldo total: $" + sueldo);
+                    }
+                }
+
+                break;
+            case 5:
+                String Nombre;
+                ArrayList<Empleado> pl = new ArrayList<>();
+                CalculadoraImpuestos impuesto = new CalculadoraImpuestos();
+
+                System.out.print("Ingrese el nombre del emplado: ");
+                Nombre = in.nextLine();
+
+                pl = empresa.getPlanilla();
+
+                for (Empleado aux : pl) {
+                    if (!pl.isEmpty()) {
+                        if (aux.getNombre().equals(Nombre)) {
+                            System.out.print(impuesto.mostrarTotales());
                         }
                     }
+                }
 
-                    break;
-                case 5:
-                    String nombre1;
-                    System.out.println("Ingrese el nombre del empleado: ");
-                    nombre1 = in.nextLine();
-                    String nombreFinal = nombre1;
+                break;
 
-                    ArrayList<Empresa> c = null;
-                    for (Empresa aux: c){
-                        if (nombreFinal.equals(nombre))
-                            System.out.println(c.toString());
-                    }
-                    break;
+            case 6:
+                System.out.println("Saliendo...");
+                continuar = false;
+                break;
 
-                case 6:
-                    System.out.println("Saliendo...");
-                    continuar = false;
-                    break;
+            default:
+                System.out.print("Opción incorrecta");
+        }
+        }catch (InputMismatchException mis){
+          System.out.print("Missmatch");
+        } catch(ArithmeticException ex){
+            System.out.print(ex.getMessage());
+        }catch(Exception mes) {
+            System.out.print(mes.getMessage());
+        }
 
-                default: System.out.print("Opción incorrecta");
-            }
+    } while (continuar);
 
-        }while(continuar);
     }
 
-    public static void addEmpleado() throws NullPointerException{
+    public static void anadirEmpleado() throws Exception {
         String persona;
         int opción;
-        String puesto = null;
-        double salario = 0;
+        String puesto;
+        double salario;
         System.out.println("**********************************");
         System.out.println(" Sistema de registro de empleados");
         System.out.println("**********************************");
@@ -88,46 +109,59 @@ public class Main {
 
         switch (opción){
             case 1:
-                puesto = "Plaza fija";
-                System.out.println("Ingrese la extension del contrato: ");
-                int extension = in.nextInt(); in.nextLine();
-                System.out.print("\nIngrese el salario de este empleado: ");
-                salario = in.nextDouble(); in.nextLine();
-                PlazaFija p1 = new PlazaFija(persona, puesto, salario, extension);
-
+                try {
+                    puesto = "Plaza fija";
+                    System.out.println("Ingrese la extension del contrato: ");
+                    int extension = in.nextInt();
+                    in.nextLine();
+                    System.out.print("\nIngrese el salario de este empleado: ");
+                    salario = in.nextDouble(); in.nextLine();
+                    PlazaFija p1 = new PlazaFija(persona, puesto, salario, extension);
+                    Empresa.addEmpleado(p1);
+                }catch (InputMismatchException mis){
+                    in.nextLine();
+                    throw new InputMismatchException("Error");
+                } catch(Exception e){
+                    System.out.print("Error");
+                }
                 break;
             case 2:
-                puesto = "Servicio profesional";
-                System.out.println("Ingrese los meses de contrato: ");
-                int mesesContrato = in.nextInt(); in.nextLine();
-                System.out.print("\nIngrese el salario de este empleado: ");
-                salario = in.nextDouble(); in.nextLine();
-                ServicioProfesional p2 = new ServicioProfesional(persona, puesto, salario, mesesContrato);
+                try {
+                    puesto = "Servicio profesional";
+                    System.out.println("Ingrese los meses de contrato: ");
+                    int mesesContrato = in.nextInt();
+                    in.nextLine();
+                    System.out.print("\nIngrese el salario de este empleado: ");
+                    salario = in.nextDouble();
+                    in.nextLine();
+                    ServicioProfesional p2 = new ServicioProfesional(persona, puesto, salario, mesesContrato);
+                    Empresa.addEmpleado(p2);
+                }catch (InputMismatchException mis){
+                    in.nextLine();
+                    throw new InputMismatchException("Error");
+                }catch (Exception e){
+                    System.out.print("Error");
+                }
                 break;
             default: System.out.print("Opción incorrecta");
         }
-        Empresa list = new Empresa(persona);
-        list.getPlanilla().add(new Empleado(persona);
-
-
     }
 
     public static void listaEmpleados(){
-        Empresa e = null;
-        assert false;
-        System.out.print(e.getPlanilla());
+        ArrayList<Empleado> e;
+        e = empresa.getPlanilla();
+
+        for (Empleado aux: e) {
+            System.out.print("Nombre: " + aux.getNombre() + "\nPuesto: " + aux.getPuesto() + "\nSalario: " + aux.getSalario());
+        }
     }
 
-    public static void quitEmpleado(String nombre){
-        Empresa d = null;
-        try {
-            if(nombre == null)
-                throw new NotExistingEmployee("No existe tal empleado.");
+    public static void quitEmpleado() {
+        String nombre = null;
 
-            d.quitEmpleado(nombre);
-        }
-        catch (NotExistingEmployee ex){
-            System.out.println(ex.getMessage());
-        }
+        System.out.print("Ingrese el nombre del empleado: ");
+        nombre = in.nextLine();
+
+        Empresa.quitEmpleado(nombre);
     }
 }

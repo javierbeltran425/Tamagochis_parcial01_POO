@@ -13,10 +13,20 @@ public abstract class Empleado {
 
     //Contructor
     public Empleado(String nombre, String puesto, double salario) {
+
+        try{
         this.nombre = nombre;
         this.puesto = puesto;
         this.salario = salario;
         documentos = new ArrayList<>();
+
+    }catch (ArithmeticException a){
+            System.out.print("HOLA...");
+        }
+    catch(Exception e)
+    {
+        System.out.print("HOLA...");
+    }
     }
 
     public String getNombre() {
