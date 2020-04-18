@@ -11,7 +11,7 @@ final public class CalculadoraImpuestos {
     }
 
     public double calcularPago(Empleado p){
-        double restante = 0;
+        double restante;
         double pagoEmpleado = 0;
 
         double rentaAux=0.00;
@@ -29,20 +29,15 @@ final public class CalculadoraImpuestos {
 
             if(restante >= 0.01 && restante <= 472.00){
                 rentaAux = 0;
-             //   this.totalRenta = 0;
             }else if (restante >= 472.01 && restante <= 895.24){
-                //this.totalRenta = 0.1 * (restante - 472) + 17.67;
                 rentaAux = 0.1 * (restante - 472) + 17.67;
             }else if (restante >= 895.25 && restante <= 2038.10){
-                //this.totalRenta = 0.2 * (restante - 895.24) + 60;
                 rentaAux = 0.2 * (restante - 895.24) + 60;
             }else if(restante >= 2038.11){
-                //this.totalRenta = 0.3 * (restante - 2038.10) + 288.57;
                 rentaAux = 0.3 * (restante - 2038.10) + 288.57;
             }
 
             pagoEmpleado = restante - rentaAux;
-            //pagoEmpleado = restante - this.totalRenta;
 
         }else if(p.getPuesto() == "Servicio profesional"){
             rentaAux= 0.1 * p.salario;

@@ -37,7 +37,7 @@ public class Empresa {
                 }
             }
         if(!bandera)
-            throw new ExcepciónEmpleado("No existe el empleado en la list");
+            throw new ExcepciónEmpleado("No existe el empleado en la lista");
     }
 }
 
