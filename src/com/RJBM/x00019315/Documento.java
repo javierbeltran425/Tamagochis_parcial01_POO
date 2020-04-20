@@ -1,5 +1,6 @@
 package com.RJBM.x00019315;
 
+
 public class Documento {
     private String nombre;
     private String numero;
@@ -19,9 +20,9 @@ public class Documento {
 
     @Override
     public String toString() {
-        return "Documento {" +
-                "nombre='" + nombre + '\'' +
-                ", numero='" + numero + '\'' +
-                '}';
+        System.out.println();
+        return "\nDocumento" +
+                "\nTipo de documento: " + nombre +
+                "\nNúmero de documento:" + numero ;
     }
 }

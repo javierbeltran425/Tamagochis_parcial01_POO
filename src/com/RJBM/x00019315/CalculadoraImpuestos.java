@@ -21,10 +21,7 @@ final public class CalculadoraImpuestos {
         if(p.getPuesto() == "Plaza fija"){
             AFPAux = p.salario * 0.0625;
             isssAux = p.salario * 0.03;
-            //this.totalAFP = p.salario * 0.0625;
-            //this.totalISSS = p.salario * 0.03;
 
-            //restante = p.salario - this.totalAFP - this.totalISSS;
             restante = p.salario - AFPAux - isssAux;
 
             if(restante >= 0.01 && restante <= 472.00){

@@ -25,10 +25,10 @@ public class Empresa {
         planilla.add(persona);
     }
 
-    static public void quitEmpleado(String nombre) throws ExcepciónEmpleado {
+    static public void quitEmpleado(String nombre) throws ExcepciónEmpleado, NotExistingDocuments {
         boolean bandera = false;
         for (Empleado aux: planilla) {
-            if(aux.getNombre().equals(nombre)){
+            if(aux.getNombre().equalsIgnoreCase(nombre)){
                 planilla.remove(aux);
                 bandera = true;
                 System.out.print("Empleado despedido");

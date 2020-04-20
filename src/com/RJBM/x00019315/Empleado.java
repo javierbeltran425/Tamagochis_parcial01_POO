@@ -21,11 +21,11 @@ public abstract class Empleado {
         documentos = new ArrayList<>();
 
     }catch (ArithmeticException a){
-            System.out.print("HOLA...");
+            System.out.print("Error");
         }
     catch(Exception e)
     {
-        System.out.print("HOLA...");
+        System.out.print("Error");
     }
     }
 
@@ -37,9 +37,7 @@ public abstract class Empleado {
         return puesto;
     }
 
-    public List<Documento> getDocumentos() {
-        return documentos;
-    }
+    public List<Documento> getDocumentos() { return documentos; }
 
     public static void addDocumento(Documento d){
         documentos.add(d);

@@ -53,7 +53,7 @@ public class Main {
                     a = empresa.getPlanilla();
 
                     for (Empleado aux : a) {
-                        if (aux.getNombre().equals(nombre)) {
+                        if (aux.getNombre().equalsIgnoreCase(nombre)) {
                             sueldo = b.calcularPago(aux);
                             System.out.print("Sueldo total: $" + sueldo);
                         }
@@ -97,6 +97,8 @@ public class Main {
 
     public static void anadirEmpleado() throws Exception {
         String persona;
+        String tipoDocumento;
+        String numeroDocumento;
         int opción;
         String puesto;
         double salario;
@@ -116,12 +118,18 @@ public class Main {
             case 1:
                 try {
                     puesto = "Plaza fija";
-                    System.out.print("Ingrese la extension del contrato: ");
+                    System.out.print("Ingrese la extension: ");
                     int extension = in.nextInt();
                     System.out.print("\nIngrese el salario de este empleado: ");
-                    salario = in.nextDouble();
+                    salario = in.nextDouble(); in.nextLine();
+                    System.out.print("Ingrese tipo de documento: ");
+                    tipoDocumento = in.nextLine();
+                    System.out.print("Número del documento: ");
+                    numeroDocumento = in.nextLine();
+                    Documento doc = new Documento(tipoDocumento, numeroDocumento);
                     PlazaFija p1 = new PlazaFija(persona, puesto, salario, extension);
                     Empresa.addEmpleado(p1);
+                    Empleado.addDocumento(doc);
                 }catch (InputMismatchException mis){
                     in.nextLine();
                     throw new InputMismatchException("Error");
@@ -135,9 +143,15 @@ public class Main {
                     System.out.print("Ingrese los meses de contrato: ");
                     int mesesContrato = in.nextInt();
                     System.out.print("\nIngrese el salario de este empleado: ");
-                    salario = in.nextDouble();
+                    salario = in.nextDouble(); in.nextLine();
+                    System.out.print("Ingrese tipo de documento: ");
+                    tipoDocumento = in.nextLine();
+                    System.out.print("Número del documento: ");
+                    numeroDocumento = in.nextLine();
+                    Documento doc2 = new Documento(tipoDocumento, numeroDocumento);
                     ServicioProfesional p2 = new ServicioProfesional(persona, puesto, salario, mesesContrato);
                     Empresa.addEmpleado(p2);
+                    Empleado.addDocumento(doc2);
                 }catch (InputMismatchException mis){
                     in.nextLine();
                     throw new InputMismatchException("Error");
@@ -152,7 +166,6 @@ public class Main {
     public static void listaEmpleados() {
         ArrayList<Empleado> e;
         e = empresa.getPlanilla();
-
         System.out.println();
 
         if (!e.isEmpty()) {
@@ -161,12 +174,13 @@ public class Main {
                 System.out.println("*****");
                 System.out.print("Nombre: " + aux.getNombre() + "\nPuesto: " + aux.getPuesto() + "\nSalario: "
                         + aux.getSalario());
+             System.out.println();
             }
         } else
             System.out.println("La lista está vacia.");
     }
 
-    public static void quitEmpleado() throws ExcepciónEmpleado {
+    public static void quitEmpleado() throws ExcepciónEmpleado, NotExistingDocuments {
         String nombre;
 
         System.out.print("Ingrese el nombre del empleado: ");
